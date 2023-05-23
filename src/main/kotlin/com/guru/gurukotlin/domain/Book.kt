@@ -18,4 +18,23 @@ data class Book(
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     )
     var author: Set<Author>
-)
+
+
+) {
+    override fun equals(other: Any?): Boolean {
+        if (this === other) return true
+        if (other !is Book) return false
+
+        if (id != other.id) return false
+
+        return true
+    }
+
+    override fun hashCode(): Int {
+        return id?.hashCode() ?: 0
+    }
+
+    override fun toString(): String {
+        return "Book(id=$id, title='$title', isbn='$isbn', author=$author)"
+    }
+}
