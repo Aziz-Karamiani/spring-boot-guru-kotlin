@@ -7,7 +7,15 @@ import jakarta.persistence.*
 data class Book(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int?,
+    var id: Long?,
     var title: String,
-    var isbn: String
+    var isbn: String,
+
+    @ManyToMany
+    @JoinTable(
+        name = "author_book",
+        joinColumns = [JoinColumn(name = "book_id")],
+        inverseJoinColumns = [JoinColumn(name = "author_id")]
+    )
+    var author: Set<Author>
 )

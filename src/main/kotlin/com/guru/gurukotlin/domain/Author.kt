@@ -7,7 +7,10 @@ import jakarta.persistence.*
 data class Author(
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    var id: Int?,
+    var id: Long?,
     var firstName: String,
-    var lastName: String
+    var lastName: String,
+
+    @ManyToMany(mappedBy = "authors")
+    var books: Set<Book>
 )
