@@ -12,7 +12,7 @@ data class Author(
     var lastName: String,
 
     @ManyToMany(mappedBy = "authors")
-    var books: Set<Book>
+    var books: Set<Book> = HashSet()
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true

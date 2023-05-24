@@ -17,7 +17,7 @@ data class Book(
         joinColumns = [JoinColumn(name = "book_id")],
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     )
-    var author: Set<Author>
+    var authors: Set<Author> = HashSet()
 
 
 ) {
@@ -35,6 +35,6 @@ data class Book(
     }
 
     override fun toString(): String {
-        return "Book(id=$id, title='$title', isbn='$isbn', author=$author)"
+        return "Book(id=$id, title='$title', isbn='$isbn', authors=$authors)"
     }
 }
