@@ -2,13 +2,19 @@ package com.guru.gurukotlin.bootstrap
 
 import com.guru.gurukotlin.domain.Author
 import com.guru.gurukotlin.domain.Book
+import com.guru.gurukotlin.domain.Publisher
 import com.guru.gurukotlin.repositories.AuthorRepository
 import com.guru.gurukotlin.repositories.BookRepository
+import com.guru.gurukotlin.repositories.PublisherRepository
 import org.springframework.boot.CommandLineRunner
 import org.springframework.stereotype.Component
 
 @Component
-class BootstrapData(val bookRepository: BookRepository, val authorRepository: AuthorRepository) : CommandLineRunner {
+class BootstrapData(
+    val bookRepository: BookRepository,
+    val authorRepository: AuthorRepository,
+    val publisherRepository: PublisherRepository
+) : CommandLineRunner {
 
     override fun run(vararg args: String?) {
         val eric = Author(id = null, firstName = "Eric", lastName = "Evans")
@@ -27,15 +33,24 @@ class BootstrapData(val bookRepository: BookRepository, val authorRepository: Au
 
         ericSaved.books.add(dddSaved)
         rodSaved.books.add(noEJBSaved)
+        dddSaved.authors.add(ericSaved)
+        noEJBSaved.authors.add(rodSaved)
+
+
+        val publisher = Publisher(id = null, publisherName = "My Publisher", address = "123 Main", city = null, state = null, zipCod = null)
+        val savedPublisher = publisherRepository.save(publisher)
+
+        dddSaved.publisher = savedPublisher
+        noEJBSaved.publisher = savedPublisher
 
         authorRepository.save(ericSaved)
         authorRepository.save(rodSaved)
+        bookRepository.save(dddSaved)
+        bookRepository.save(noEJBSaved)
 
         println("In Bootstrap")
         println("Author Count: " + authorRepository.count())
         println("Book Count: " + bookRepository.count())
 
-        println("----------" + rodSaved.books)
-        println("----------" + ericSaved.books)
     }
 }

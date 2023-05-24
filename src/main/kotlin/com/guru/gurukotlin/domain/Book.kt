@@ -17,9 +17,10 @@ data class Book(
         joinColumns = [JoinColumn(name = "book_id")],
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     )
-    var authors: MutableSet<Author> = HashSet()
+    var authors: MutableSet<Author> = HashSet(),
 
-
+    @ManyToOne
+    var publisher: Publisher? = null
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -35,6 +36,6 @@ data class Book(
     }
 
     override fun toString(): String {
-        return "Book(id=$id, title='$title', isbn='$isbn', authors=$authors)"
+        return "Book(id=$id, title='$title', isbn='$isbn', authors=$authors, publisher=$publisher)"
     }
 }
