@@ -25,8 +25,8 @@ class BootstrapData(val bookRepository: BookRepository, val authorRepository: Au
         val rodSaved = authorRepository.save(rod)
         val noEJBSaved = bookRepository.save(noEJB)
 
-        ericSaved.books.plusElement(dddSaved)
-        rodSaved.books.plusElement(noEJBSaved)
+        ericSaved.books.add(dddSaved)
+        rodSaved.books.add(noEJBSaved)
 
         authorRepository.save(ericSaved)
         authorRepository.save(rodSaved)
@@ -34,5 +34,8 @@ class BootstrapData(val bookRepository: BookRepository, val authorRepository: Au
         println("In Bootstrap")
         println("Author Count: " + authorRepository.count())
         println("Book Count: " + bookRepository.count())
+
+        println("----------" + rodSaved.books)
+        println("----------" + ericSaved.books)
     }
 }

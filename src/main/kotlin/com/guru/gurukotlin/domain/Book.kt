@@ -17,7 +17,7 @@ data class Book(
         joinColumns = [JoinColumn(name = "book_id")],
         inverseJoinColumns = [JoinColumn(name = "author_id")]
     )
-    var authors: Set<Author> = HashSet()
+    var authors: MutableSet<Author> = HashSet()
 
 
 ) {
